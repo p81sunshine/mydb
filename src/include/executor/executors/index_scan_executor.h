@@ -7,6 +7,7 @@
 #include "executor/plans/index_scan_plan.h"
 #include "planner/expressions/column_value_expression.h"
 #include "planner/expressions/comparison_expression.h"
+#include <set>
 
 /**
  * The IndexScanExecutor executor can over a table.
@@ -38,4 +39,8 @@ class IndexScanExecutor : public AbstractExecutor {
 
   /** The sequential scan plan node to be executed */
   const IndexScanPlanNode *plan_;
+  TableInfo* table_info;
+  std::set<RowId> res;
+  std::set<RowId>::iterator begin;
+
 };

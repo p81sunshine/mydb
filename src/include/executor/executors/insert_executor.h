@@ -47,8 +47,6 @@ class InsertExecutor : public AbstractExecutor {
   std::unique_ptr<AbstractExecutor> child_executor_;  // 独占指针（智能指针的一种）
   /** The indexes info of the table */
   std::vector<IndexInfo *> indexes_;
-    /** The iterator of `raw values` */
-  std::vector<std::vector<Field>>::const_iterator raw_it_;
     /** The table info */
   TableInfo *table_info_;
 };

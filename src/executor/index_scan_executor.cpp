@@ -41,9 +41,17 @@ void IndexScanExecutor::Init() {
 
 bool IndexScanExecutor::Next(Row *row, RowId *rid) {
   // 输出set里面的一个元素
-  
-  if (begin != res.end()) {
-    // 读取行，然后根据行的内容，使用seqscan类似的方法进行谓词判断
+  while (begin != res.end()) {  // 读取行，然后根据行的内容，使用seqscan类似的方法进行谓词判断
+    Row res_row(*begin);
+    table_info->GetTableHeap()->GetTuple(&res_row, exec_ctx_->GetTransaction());
+    Field temp(kTypeInt, 1);
+    if (temp.CompareEquals(plan_->GetPredicate()->Evaluate(&res_row))) {  // 比较是否满足条件
+      *row = res_row;
+      *rid = *begin;
+      return true;
+    } else {
+      begin++;
+    }
   }
 
   return false;

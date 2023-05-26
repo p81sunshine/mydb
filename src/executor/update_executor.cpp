@@ -12,6 +12,7 @@ UpdateExecutor::UpdateExecutor(ExecuteContext *exec_ctx, const UpdatePlanNode *p
 * TODO: Student Implement
 */
 void UpdateExecutor::Init() {
+  GenerateUpdatedTuple();
 }
 
 bool UpdateExecutor::Next([[maybe_unused]] Row *row, RowId *rid) {
